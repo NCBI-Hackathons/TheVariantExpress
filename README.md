@@ -15,9 +15,6 @@ Structural Variant is a region of DNA 1 kb and larger in size and can include in
 
 # What's the problem?
 
-With the amount of genetic factors, it is very difficult to link a mechanism to casusality 
+With the amount of genetic factors, it is very difficult to link a mechanism to casusality and expression.  This leads to unknowns when trying to consider expressions to any variants that are pathogenic.  DISVAR will show associations between variants and expressions to better identify the pathways through which a variant acts.  
 
-Difficult to link causality and a mechanism  (driving genes)
-Can have a variant that we know is pathogenic but not know what pathway through which it acts
-If you have overexpression and know a gene drives it.. you may not know what causes the change in expression
-Corresponding variation and 
+
