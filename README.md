@@ -1,6 +1,6 @@
 ![Logo](images/Logo.png)
 
-# Find a list genetic variants associated with specific diseases at the speed of a locomotive.  All aboard the Variant Express!
+# List genetic variants associated with diseases.  All aboard the Variant Express!
 
 Hackathon team: Cong Chen, Matthew Dapas, Joseph Subida, Octavious Talbot, Chad Travis, Ye Wang
 
