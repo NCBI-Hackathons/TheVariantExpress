@@ -12,7 +12,7 @@ The Variant Express is a new pipeline that creates association testing between v
 
 A Variant is a region of DNA is over 49 nucleotides and can include inversions and balanced translocations or genomic imbalances.  These imbalances are referred to as copy number variants (CNVs), which often overlap duplications.  In addition to well-known sporadic chromosomal microdeletion syndromes and Mendelian diseases, many common complex traits including autism and schizophrenia can result from CNVs.
 
-# How Does The Variant Express do it?
+# How Does The Variant Express Do It?
 
 Overview Diagram
 
