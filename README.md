@@ -2,8 +2,6 @@
 
 # List genetic variants associated with diseases.  All aboard the Variant Express!
 
-Hackathon team: Cong Chen, Matthew Dapas, Joseph Subida, Octavious Talbot, Chad Travis, Ye Wang
-
 Genetic variants are abundant and are expected to contribute to risk of disease for an individual. Previous genetic association studies have successfully identified common genetic variants associated with risk for disease, these studies are not practical for searching on a massive scale or viewing association testing for expression of certain genes.  
 
 The Variant Express is a new pipeline that creates association testing between variants in RNA-Seq data and expression analysis, in order to create leads for research. 
@@ -56,5 +54,5 @@ The Docker image contains <this software> as well as a webserver and FTP server 
 
 Test it
 
-
+Hackathon team: Cong Chen, Matthew Dapas, Joseph Subida, Octavious Talbot, Chad Travis, Ye Wang
 
