@@ -17,6 +17,7 @@ Structural Variant is a region of DNA 1 kb and larger in size and can include in
 Overview Diagram
 
 ![Pipeline](images/pipeline.png)
+![UpdatedPipeline](images/updatedPipeline.png)
 
 # How to use The Varient Express <this software>
 
