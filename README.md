@@ -21,6 +21,8 @@ Overview Diagram
 
 # How to use The Varient Express <this software>
 
+Put screenshot here
+
 # Software Workflow Diagram
 
 # File structure diagram 
