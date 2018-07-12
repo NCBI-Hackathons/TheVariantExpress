@@ -2,7 +2,7 @@
 
 # List genetic variants associated with diseases.  All aboard the Variant Express!
 
-Genetic variants are abundant and hypothesized to contribute to an individual's risk of disease. Past studies on variants are not practical for searching by disease on a massive scale or viewing association testing for expression of certain genes.  
+Genetic variants are abundant and can contribute to an individual's risk of disease. Past studies on variants are not practical for searching by disease on a massive scale or viewing association testing for expression of certain genes.  
 
 The Variant Express is a new pipeline that creates association testing between variants in RNA-Seq data and expression analysis, in order to create leads for research. 
 
