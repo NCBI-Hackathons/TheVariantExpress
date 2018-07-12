@@ -1,7 +1,6 @@
 ![Logo](images/Logo.png)
 
-# List genetic variants associated with diseases.  
-# All aboard the Variant Express!
+# List genetic variants associated with diseases.  All aboard the Variant Express!
 
 Hackathon team: Cong Chen, Matthew Dapas, Joseph Subida, Octavious Talbot, Chad Travis, Ye Wang
 
