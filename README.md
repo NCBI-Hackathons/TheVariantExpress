@@ -23,8 +23,14 @@ Overview Diagram
 - R >= 3.3
 - Python >= 3.6.4
 - zlib >= 1.2.8
+
+##### R Packages
 - optparse
 - MatrixEQTL
+- httr
+- jsonlite
+- dplyr
+- rentrez
 
 See all [dependencies](https://github.com/NCBI-Hackathons/TheVariantExpress/blob/master/DEPENDENCIES)
 
