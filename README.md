@@ -2,7 +2,9 @@
 
 # List the genetic variants associated with diseases,  all aboard the Variant Express!
 
-Integrating genetic variation data with gene expression data is a powerful approach for discovering causal variants and uncovering relevant biological pathways. However, such data integration typically requires multiple modes of data. The Variant Express is a new pipeline that performs association testing between genetic variants and gene expression estimates from RNA-Seq data alone. 
+Integrating genetic variation data with gene expression data is a powerful approach for discovering causal variants and uncovering relevant biological pathways. However, such integration typically requires multiple modes of data. The Variant Express is a new pipeline that performs association testing between gene expression estimates and genetic variants identified from RNA-Seq data alone.
+
+The Variant Express simultaneously quantifies gene expression and identifies coding variants from RNA-Seq data and then tests for association between variants and differentially expressed genes. The Variant Express can query ClinVar to limit association testing to pathogenic variants, or can accept a user-supplied list of custom variants.
 
 # How Does The Variant Express Do It??
 
