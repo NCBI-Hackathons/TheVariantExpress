@@ -27,32 +27,33 @@ Put screenshot here
 # File structure diagram 
 #### _Define paths, variable names, etc_
 
-# Installation options:
+# Using The Variant Express
 
-We provide two options for installing <this software>: Docker or directly from Github.
+### Dependencies
 
-### Docker
+- R >= 3.3
+- Python >= 3.6.4
+- zlib >= 1.2.8
 
-The Docker image contains <this software> as well as a webserver and FTP server in case you want to deploy the FTP server. It does also contain a web server for testing the <this software> main website (but should only be used for debug purposes).
+See all [dependencies](https://github.com/NCBI-Hackathons/TheVariantExpress/blob/master/DEPENDENCIES)
 
-1. `docker pull ncbihackathons/<this software>` command to pull the image from the DockerHub
-2. `docker run ncbihackathons/<this software>` Run the docker image from the master shell script
-3. Edit the configuration files as below
+### Installation
 
-### Installing <this software> from Github
+1. `git clone git@github.com:NCBI-Hackathons/TheVariantExpress.git && cd TheVariantExpress`
+2. `git clone git@github.com:AndersenLab/SEmRNA-seq-nf.git`
+3. `wget -qO- https://get.nextflow.io | bash`
 
-1. `git clone https://github.com/NCBI-Hackathons/<this software>.git`
-2. Edit the configuration files as below
-3. `sh server/<this software>.sh` to test
-4. Add cron job as required (to execute <this software>.sh script)
+### Running
 
-### Configuration
+    ./nextflow run main.nf -profile local -resume --reads "<directory_path>" --email "<your_email>" --output "output" --transcriptome "<transcriptome_file_location>"
 
-```Examples here```
+##### Parameters
 
-# Testing
-
-Test it
+- `-profile`: The server environment; can be `local` or `quest`
+- `--reads`: Path to directory of FASTQ files (Single and/or pair reads)
+- `--email`: Email address to send notifications and results
+- `--output`: Name of output directory
+- `--trascriptome`: Transcriptome used for reads mapping
 
 Hackathon team: Cong Chen, Matthew Dapas, Joseph Subida, Octavious Talbot, Chad Travis, Ye Wang
 
