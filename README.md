@@ -55,7 +55,7 @@ See all [dependencies](https://github.com/NCBI-Hackathons/TheVariantExpress/blob
 
 ![UpdatedPipeline](https://docs.google.com/drawings/d/e/2PACX-1vRj84kE1cPLvzOBnkFm1tWz4ZjQWhGTybDpKjc9rBf2huzqlTTA3ViRTK6sJX6qW4ra-3TqnIGJPmKk/pub?w=960&h=720)
 
-
+![ExampleOutput](https://slack-files.com/TB21918HL-FBQ6V9RC4-f7b6f1f4ac)
 
 Hackathon team: Cong Chen, Matthew Dapas, Joseph Subida, Octavious Talbot, Chad Travis, Ye Wang
 
