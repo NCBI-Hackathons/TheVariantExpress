@@ -50,7 +50,7 @@ See all [dependencies](https://github.com/NCBI-Hackathons/TheVariantExpress/blob
 - `--reads`: Path to directory of FASTQ files (Single and/or pair reads)
 - `--email`: Email address to send notifications and results
 - `--output`: Name of output directory
-- `--trascriptome`: Transcriptome used for reads mapping
+- `--transcriptome`: Transcriptome used for reads mapping
 
 
 # Software Workflow Diagram
