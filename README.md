@@ -2,9 +2,7 @@
 
 # List the genetic variants associated with diseases,  all aboard the Variant Express!
 
-Genetic variants are abundant and can contribute to an individual's risk of disease. Past studies on variants are not practical for searching by disease on a massive scale or viewing association testing for expression of certain genes.  
-
-The Variant Express is a new pipeline that creates association testing between variants in RNA-Seq data and expression analysis, in order to create leads for research. 
+Integrating genetic variation data with gene expression data is a powerful approach for discovering causal variants and uncovering relevant biological pathways. However, such data integration typically requires multiple modes of data. The Variant Express is a new pipeline that performs association testing between genetic variants and gene expression estimates from RNA-Seq data alone. 
 
 # How Does The Variant Express Do It??
 
