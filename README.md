@@ -18,6 +18,8 @@ Overview Diagram
 
 # How to use The Variant Express
 
+![img](images/Snp_11_vs_Gene_06.png)
+
 ### Dependencies
 
 - R >= 3.3
