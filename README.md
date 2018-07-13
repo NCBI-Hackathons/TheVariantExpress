@@ -1,6 +1,6 @@
 ![Logo](images/Logo.png)
 
-# List genetic variants associated with diseases.  All aboard the Variant Express!
+# List the genetic variants associated with diseases,  all aboard the Variant Express!
 
 Genetic variants are abundant and can contribute to an individual's risk of disease. Past studies on variants are not practical for searching by disease on a massive scale or viewing association testing for expression of certain genes.  
 
