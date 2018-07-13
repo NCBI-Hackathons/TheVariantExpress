@@ -1,24 +1,54 @@
 #!/usr/bin/env nextflow
 
-params.reads = "/projects/b1059/data/fastq/WI/rna/miska_rna_seq/*/*/*_L00{1,2}_R1_001.fastq.gz"
-params.ref_gemone = ""
-params.transcriptome = "$baseDir/test_data/c.elegans.cdna.ncrna.fa"
+/*
+========================================================================================
+                         NCBI-Hackathons/TheVariantExpress
+========================================================================================
+ NCBI-Hackathons/TheVariantExpress Analysis Pipeline. Started 2018-06-21.
+ https://github.com/NCBI-Hackathons/TheVariantExpress
+ #### Authors
+ Cong Chen < >
+ Matthew Dapas < >
+ Joseph Subida < >
+ Octavious Talbot < >
+ Chad Travis <   >
+ Ye Wang <ye.wang@northwestern.edu>
+
+----------------------------------------------------------------------------------------
+*/
+
+params.reads = "${baseDir}/test_data/fastq/*_{1,2}.fastq.gz"
+params.ref_gemone = "${baseDir}/test_data/human_genome/subsample_refgenome.fa"
+params.transcriptome = "${baseDir}/test_data/human_transcriptome/hg_transcriptome.fa"
 params.output = "results"
-params.multiqc = "$baseDir/multiqc"
+params.multiqc = "${baseDir}/multiqc"
 params.fragment_len = '250'
 params.fragment_sd = '50'
 params.bootstrap = '100'
-params.experiment = "$baseDir/experiment_info.txt"
+params.experiment = "${baseDir}/info.txt"
 params.email = ""
 
-File fq_file = new File(params.fqs)
+/*
+Params for clinvar
+ */
+params.term = "sepsis"
+params.variant_type = "NULL"
+params.significance = 1
+params.risk_factor = "NULL"
+
+term = Channel.from(params.term)
+variant_type = Channel.from(params.variant_type)
+significance = Channel.from(params.significance)
+risk_factor = Channel.from(params.risk_factor)
+
 
 log.info """\
-              SEPSIS   P I P E L I N E  
+         ===================================
+                TheVariantExpress
          ===================================
          ref_gemone   : ${ params.ref_gemone }
          transcriptome: ${ params.transcriptome }
-         fqs          : ${ params.fqs }
+         reads        : ${ params.reads }
          output       : ${ params.output }
          fragment_len : ${ params.fragment_len } 
          fragment_sd  : ${ params.fragment_sd }
@@ -29,7 +59,7 @@ log.info """\
          """
          .stripIndent()
 
-
+genome_file = file(params.ref_gemone)
 transcriptome_file = file(params.transcriptome)
 multiqc_file = file(params.multiqc)
 exp_file = file(params.experiment)
@@ -41,12 +71,48 @@ if( !transcriptome_file.exists() ) exit 1, "Missing transcriptome file: ${transc
 
 if( !exp_file.exists() ) exit 1, "Missing Experiment parameters file: ${exp_file}"
 
+if( !genome_file.exists() ) exit 1, "MIssing reference genome file: ${genome_file}"
+
 
 
 Channel
     .fromFilePairs( params.reads )
     .ifEmpty { error "Cannot find any reads matching: ${params.reads}" }
-    .into { read_1_ch; read_2_ch; read_3_ch; read_4_ch }
+    .into { read_1_ch; read_2_ch; read_3_ch; read_4_ch; read_5_ch }
+
+
+/*
+=========================
+   Pull clinvar data
+=========================
+ */
+
+process get_clinvar_db {
+
+    publishDir "${params.output}/clinvar", mode: "copy", overwrite: 'true'
+
+    echo true
+
+    input:
+    val term
+    val variant_type
+    val significance
+    val risk_factor 
+
+    output:
+    file "Clinvar_variables.tsv"
+
+    script:
+    """
+    clinvar_db.R ${term} ${variant_type} ${significance} ${risk_factor}
+    """
+}
+
+/*
+====================
+   Quantification
+====================
+ */
 
 process qc_index {
 
@@ -84,7 +150,7 @@ process kal_mapping {
 
 	publishDir "${params.output}/quantification/kallisto", mode: "copy", overwrite: 'true'
 
-    tag "SM"
+    tag "${SM}"
 
     input:
         file index from transcriptome_index
@@ -175,6 +241,8 @@ process multiqc {
 
 process sleuth {
 
+    echo true
+
 	publishDir "${params.output}/quantification", mode: "copy", overwrite: 'true'
 
     input:
@@ -195,6 +263,103 @@ process sleuth {
         sleuth.R kallisto ${exp_file}
         """
 }
+
+
+/*
+====================================
+  Call variants from RNA-seq data
+====================================
+ */
+
+process index_1 {
+
+    publishDir "${params.output}/call/index_file_1", mode: "copy"
+
+    tag "$genome_file.simpleName"
+
+    input:
+        file genome_file
+
+
+    output:
+        file 'index_file_1/*' into align_1_ch 
+
+        """
+        mkdir index_file_1
+
+        STAR \\
+        --runMode genomeGenerate \\
+        --genomeDir index_file_1 \\
+        --genomeFastaFiles ${genome_file}  \\
+        --runThreadN 16
+        """
+}
+
+process alignment_1 {
+
+    publishDir "${params.output}/call/align_1", mode: "copy"
+
+    tag "${SM}"
+
+    input:
+    set SM, file(fq) from read_4_ch
+    val path from align_1_ch
+
+    output:
+    file "align_1/*" into index_2_ch
+
+
+    """
+    mkdir align_1
+    STAR --genomeDir ${baseDir}/${params.output}call/index_file_1 --readFilesIn ${fq[0]} ${fq[1]} --runThreadN 8
+    """
+}
+
+process index_2 {
+
+    publishDir "${params.output}/call", mode: "copy"
+
+    tag "$genome_file.simpleName"
+
+    input:
+        file genome_file
+        val path from index_2_ch
+
+
+    output:
+        file 'index_file_2/*' into align_2_ch 
+
+        """
+        mkdir index_file_2
+
+        STAR --runMode genomeGenerate --genomeDir index_file_2 --genomeFastaFiles ${genome_file} --sjdbFileChrStartEnd ${baseDir}/${params.output}call/align_1/SJ.out.tab --sjdbOverhang 75 --runThreadN 8
+        """
+}
+
+process alignment_2 {
+
+    publishDir "${params.output}/call/align_2", mode: "copy"
+
+    tag "${SM}"
+
+    input:
+    set SM, file(fq) from read_5_ch
+    val path from align_1_ch
+
+    output:
+    file "align_1/*" into next
+
+
+    """
+    mkdir align_2
+    STAR --genomeDir ${baseDir}/${params.output}call/index_file_2 --readFilesIn ${fq[0]} ${fq[1]} --runThreadN 8
+    """
+}
+
+
+
+
+
 
 workflow.onComplete {
     summary = """
